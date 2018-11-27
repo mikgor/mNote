@@ -13,3 +13,9 @@ class NoteCreateUpdateForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ('title', 'text')
+
+class GroupCreateUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Group
+        fields = ('name', 'users')

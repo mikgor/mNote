@@ -12,4 +12,16 @@
    {% else %}
       <p>Brak notatek.</p>
    {% endif %}
+   {% if groups %}
+   {% for group in groups %}
+      <br>{{ group.id }}
+      {{ group.name }}
+      {{ group.owner }}
+      {% for u in group.users.all %}
+    {{ u }}
+{% endfor %}
+   {% endfor %}
+   {% else %}
+      <p>Brak grup.</p>
+   {% endif %}
 {% endblock %}

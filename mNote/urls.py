@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^signup/$', views.SignUp.as_view(), name='signup'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'newnote/$', views.NoteCreate.as_view(), name='NoteCreate'),
+    url(r'newgroup/$', views.GroupCreate.as_view(), name='GroupCreate'),
 ]
