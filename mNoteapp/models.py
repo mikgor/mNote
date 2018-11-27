@@ -9,4 +9,4 @@ class AppUser(AbstractUser):
     notes = models.ManyToManyField(Note)
 
     def __str__(self):
-        return self.email
+        return self.username

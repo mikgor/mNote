@@ -6,4 +6,4 @@ class AppUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = AppUser
-        fields = ('username', 'email')
+        fields = ('username',)
