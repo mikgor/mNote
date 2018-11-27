@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>mNote - {% block title %}{% endblock %}</title>
+        {% block scripts %}{% endblock %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     	  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    </head>
+    <body>
+      <div class="content">
+         {% block content %}{% endblock %}
+      </div>
+   </body>
+</html>

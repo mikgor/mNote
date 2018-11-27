@@ -6,7 +6,7 @@ class Note(models.Model):
     text = models.TextField('Treść')
 
 class AppUser(AbstractUser):
-    notes = models.ManyToManyField(Task)
+    notes = models.ManyToManyField(Note)
 
     def __str__(self):
         return self.email
