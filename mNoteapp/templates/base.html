@@ -9,6 +9,11 @@
      	  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     </head>
     <body>
+      {% if user.is_authenticated %}
+         Witaj {{ user.username }}
+      {% else %}
+         <a href="{% url 'signup' %}">Rejestracja</a> <a href="{% url 'login' %}">Logowanie</a>
+      {% endif %}
       <div class="content">
          {% block content %}{% endblock %}
       </div>
