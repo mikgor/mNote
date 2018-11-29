@@ -3,12 +3,40 @@
    Strona główna
 {% endblock %}
 {% block content %}
+<script type="text/javascript">
+   function processNote($type, $id) {
+      if ($type != "text") {
+         $elId = "#" + $id;
+         $options = $($elId + "Text").text().trim().split(";");
+         $($elId + "Text").text("");
+         if ($type == "todo") {
+            for ($i = 0; $i < $options.length-1; $i++) {
+               $($elId + "Text").append("<input type='checkbox' id='" + $id + "Checkbox' />" + $options[$i]);
+            }
+         }
+         else if ($type == "list") {
+            $($elId + "Text").append("<ol id='" +$id +"Ol'></ol>");
+            for ($i = 0; $i < $options.length-1; $i++) {
+               $($elId + "Ol").append("<li>" + $options[$i] + "</li>");
+            }
+         }
+      }
+   }
+</script>
    {% if notes %}
-   {% for note in notes %}
-      {{ note.id }}
-      {{ note.title }}
-      {{ note.text }}
-   {% endfor %}
+      {% for note in notes %}
+         <div class="note" id="note{{ note.id }}">
+            <div class="noteTitle">
+               {{ note.title }}
+            </div>
+            <div class="noteText" id="note{{ note.id }}Text">
+               {{ note.text }}
+            </div>
+         </div>
+         <script type="text/javascript">
+            processNote("{{ note.type }}","note{{ note.id }}");
+         </script>
+      {% endfor %}
    {% else %}
       <p>Brak notatek.</p>
    {% endif %}
@@ -18,8 +46,8 @@
       {{ group.name }}
       {{ group.owner }}
       {% for u in group.users.all %}
-    {{ u }}
-{% endfor %}
+         {{ u }}
+      {% endfor %}
    {% endfor %}
    {% else %}
       <p>Brak grup.</p>

@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class Note(models.Model):
+    TYPE_CHOICES = (
+    ("text", "Tekst"),
+    ("todo", "To-do"),
+    ("list", "Lista"),
+    )
+    type = models.CharField('Typ', max_length=5,  choices=TYPE_CHOICES, default="text")
     title = models.CharField('Tytuł', max_length=100)
     text = models.TextField('Treść')
 
