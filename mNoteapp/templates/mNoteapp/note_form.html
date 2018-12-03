@@ -12,7 +12,7 @@
       {{ form.as_p }}
       <p>
          <div id="textnote">
-         Tekst: <textarea id="textnotetext" rows="8" cols="50"></textarea>
+         Tekst: <textarea id="textnotetext" rows="8" cols="50" onkeyup="textnoteKeyup();"></textarea>
          </div>
          <div id="todonote" hidden>
             Opcje To-Do: <div class="todoOptions">
