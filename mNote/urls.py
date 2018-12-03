@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'newnote/$', views.NoteCreate.as_view(), name='NoteCreate'),
     url(r'newgroup/$', views.GroupCreate.as_view(), name='GroupCreate'),
+    url(r'^(?P<pk>[0-9]+)/groupupdate/$', views.GroupUpdate.as_view(), name='GroupUpdate'),
     url(r'newgroupnote/$', views.GroupNoteCreate.as_view(), name='GroupNoteCreate'),
 ]

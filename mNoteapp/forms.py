@@ -15,7 +15,13 @@ class NoteCreateUpdateForm(forms.ModelForm):
         fields = ('type', 'title', 'text')
         widgets = {'text': forms.HiddenInput()}
 
-class GroupCreateUpdateForm(forms.ModelForm):
+class GroupCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Group
+        fields = ('name', 'users')
+
+class GroupUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Group

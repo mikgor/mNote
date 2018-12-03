@@ -1,5 +1,5 @@
 from django.views import generic
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from .forms import *
 from django.urls import reverse_lazy
 from django.shortcuts import render
@@ -47,7 +47,7 @@ class GroupNoteCreate(LoginRequiredMixin, CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 class GroupCreate(LoginRequiredMixin, CreateView):
-    form_class = GroupCreateUpdateForm
+    form_class = GroupCreateForm
     template_name = 'mNoteapp/group_form.html'
     success_url = reverse_lazy('index')
 
@@ -58,4 +58,25 @@ class GroupCreate(LoginRequiredMixin, CreateView):
         self.object.save()
         for user in self.object.users.all():
             user.groups.add(self.object)
+        return HttpResponseRedirect(self.get_success_url())
+
+class GroupUpdate(LoginRequiredMixin, UpdateView):
+    model = Group
+    form_class = GroupUpdateForm
+    template_name = 'mNoteapp/group_update_form.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        obj = self.object.users.all()
+        self.object = form.save(commit=False)
+
+        for user in obj:
+            if not form.cleaned_data['users'].filter(username=user.username).exists() and not user.username==self.object.owner:
+                user.groups.remove(self.object)
+                print("Usunięto", user.username)
+
+        self.object.users.set(form.cleaned_data['users'])
+        if not self.object.users.filter(username=self.object.owner).exists():
+            self.object.users.add(self.request.user)
+        self.object.save()
         return HttpResponseRedirect(self.get_success_url())
