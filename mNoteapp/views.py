@@ -34,6 +34,18 @@ class NoteCreate(LoginRequiredMixin, CreateView):
         self.request.user.notes.add(self.object)
         return HttpResponseRedirect(self.get_success_url())
 
+class GroupNoteCreate(LoginRequiredMixin, CreateView):
+    form_class = NoteCreateUpdateForm
+    template_name = 'mNoteapp/groupnote_form.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        groupid = self.request.POST['group']
+        self.object = form.save(commit=False)
+        self.object.save()
+        Group.objects.get(id=groupid).notes.add(self.object)
+        return HttpResponseRedirect(self.get_success_url())
+
 class GroupCreate(LoginRequiredMixin, CreateView):
     form_class = GroupCreateUpdateForm
     template_name = 'mNoteapp/group_form.html'

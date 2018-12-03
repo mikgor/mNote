@@ -48,6 +48,9 @@
       {% for u in group.users.all %}
          {{ u }}
       {% endfor %}
+      {% for n in group.notes.all %}
+         {{ n.title }}
+      {% endfor %}
    {% endfor %}
    {% else %}
       <p>Brak grup.</p>

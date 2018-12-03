@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-   Nowa notatka
+   Nowa notatka dla grupy
 {% endblock %}
 {% block scripts %}
    <script src="{% static 'mNoteapp/scripts/note_create_script.js' %}"></script>
 {% endblock %}
 {% block content %}
    <form method="post">{% csrf_token %}
-      <h2>Nowa notatka</h2>
+      <h2>Nowa notatka dla grupy</h2>
       {{ form.as_p }}
       <p>
+         Grupa: <select name="group" id="id_group">
+         {% for group in user.groups.all %}
+            <option value="{{ group.id }}">{{ group.name }}</option>
+         {% endfor %}
+         </select>
          <div id="textnote">
          Tekst: <textarea id="textnotetext" rows="8" cols="50"></textarea>
          </div>
