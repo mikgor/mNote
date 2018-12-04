@@ -1,7 +1,7 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView
 from .forms import *
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Note
@@ -84,3 +84,27 @@ class GroupUpdate(LoginRequiredMixin, UpdateView):
             self.object.users.add(self.request.user)
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+def UpdateCheckboxNote(request):
+    if request.user.is_anonymous:
+        return HttpResponseRedirect(reverse('signup'))
+    note = ''
+    try:
+        note_id = request.GET.get('note_id', None)
+        index = request.GET.get('index', None)
+
+        if note_id is not None and index is not None:
+            note = Note.objects.get(pk=note_id)
+            fields = note.text.split(";")
+            index = int(index)
+            field = fields[index]
+            if "*" in field:
+                fields[index] = field.replace("*", "")
+            else:
+                fields[index] = "*" + field
+
+            note.text = ";".join(str(f) for f in fields)
+            note.save()
+    except:
+        return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('index'))

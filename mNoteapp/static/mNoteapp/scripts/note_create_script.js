@@ -7,9 +7,7 @@ function typeSelected() {
    $("#" + $("#id_type").val() + "note").attr("hidden", false);
 }
 
-$("#id_type").change(function() {
-   typeSelected();
-});
+
 
 function textnoteKeyup() {
    $("#id_text").val($("#textnotetext").val());

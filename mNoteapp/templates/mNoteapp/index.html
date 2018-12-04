@@ -4,14 +4,22 @@
 {% endblock %}
 {% block content %}
 <script type="text/javascript">
+   function update_handler( $id, $i ) {
+    return function(event) {
+        location.href = "{% url 'UpdateCheckboxNote' %}?note_id=" + $id + "&index=" + $i;
+    };
+}
    function processNote($type, $id) {
       if ($type != "text") {
-         $elId = "#" + $id;
+         $elId = "#note" + $id;
          $options = $($elId + "Text").text().trim().split(";");
          $($elId + "Text").text("");
          if ($type == "todo") {
             for ($i = 0; $i < $options.length-1; $i++) {
-               $($elId + "Text").append("<input type='checkbox' id='" + $id + "Checkbox' />" + $options[$i]);
+               $checked = $options[$i].indexOf('*')>=0 ? "checked" : "";
+               $($elId + "Text").append("<input type='checkbox' id='" + $id + $i + "Checkbox' " + $checked + "/> " + $options[$i].replace('*', ''));
+               $("#" + $id + $i + "Checkbox").click(
+                  update_handler( $id, $i ));
             }
          }
          else if ($type == "list") {
@@ -34,7 +42,7 @@
             </div>
          </div>
          <script type="text/javascript">
-            processNote("{{ note.type }}","note{{ note.id }}");
+            processNote("{{ note.type }}","{{ note.id }}");
          </script>
       {% endfor %}
    {% else %}

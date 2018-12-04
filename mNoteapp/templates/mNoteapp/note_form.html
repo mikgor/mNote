@@ -30,6 +30,9 @@
       <input type="submit" value="Dodaj" />
    </form>
    <script type="text/javascript">
+      $("#id_type").change(function() {
+         typeSelected();
+      });
       typeSelected();
    </script>
 {% endblock %}
