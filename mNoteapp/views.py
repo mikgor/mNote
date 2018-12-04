@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Note
 from django.http import HttpResponseRedirect
 
-class IndexView(generic.ListView):
+class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'mNoteapp/index.html'
     context_object_name = 'index_context'
     queryset = ''
@@ -67,13 +67,17 @@ class GroupUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
-        obj = self.object.users.all()
         self.object = form.save(commit=False)
 
-        for user in obj:
+        for user in self.object.users.all():
             if not form.cleaned_data['users'].filter(username=user.username).exists() and not user.username==self.object.owner:
                 user.groups.remove(self.object)
                 print("Usunięto", user.username)
+
+        for user in form.cleaned_data['users']:
+            if not user.groups.filter(pk=self.object.id).exists():
+                user.groups.add(self.object)
+                print("Dodano", user.username)
 
         self.object.users.set(form.cleaned_data['users'])
         if not self.object.users.filter(username=self.object.owner).exists():
