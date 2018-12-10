@@ -7,8 +7,6 @@ function typeSelected() {
    $("#" + $("#id_type").val() + "note").attr("hidden", false);
 }
 
-
-
 function textnoteKeyup() {
    $("#id_text").val($("#textnotetext").val());
 }

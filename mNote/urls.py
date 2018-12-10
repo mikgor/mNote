@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/groupupdate/$', views.GroupUpdate.as_view(), name='GroupUpdate'),
     url(r'newgroupnote/$', views.GroupNoteCreate.as_view(), name='GroupNoteCreate'),
     url(r'^UpdateCheckboxNote/$', views.UpdateCheckboxNote, name='UpdateCheckboxNote'),
+    url(r'^(?P<pk>[0-9]+)/noteupdate/$', views.NoteUpdate.as_view(), name='NoteUpdate'),
 ]

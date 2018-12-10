@@ -108,3 +108,9 @@ def UpdateCheckboxNote(request):
     except:
         return HttpResponseRedirect(reverse('index'))
     return HttpResponseRedirect(reverse('index'))
+
+class NoteUpdate(LoginRequiredMixin, UpdateView):
+    model = Note
+    form_class = NoteCreateUpdateForm
+    template_name = 'mNoteapp/note_update_form.html'
+    success_url = reverse_lazy('index')
