@@ -18,7 +18,8 @@ function addOption($type) {
    $count = $type == "todo" ? ++$todoOptionsCount : ++$listOptionsCount;
    $("<input>").attr({
       type: "text",
-      id: $type + "Option" + $count
+      id: $type + "Option" + $count,
+      class: "optionIn"
    }).appendTo("." + $type + "Options");
    $("#" + $type + "Option" + $count).keyup(function() {
       optionKeyup($type);

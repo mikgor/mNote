@@ -16,15 +16,15 @@
          </div>
          <div id="todonote" hidden>
             Opcje To-Do: <div class="todoOptions">
-               <input type="text" id="todoOption1" onkeyup="optionKeyup('todo');">
+               <input type="text" id="todoOption1" onkeyup="optionKeyup('todo');" class="optionIn">
             </div>
-            <button type="button" onclick="addOption('todo');">Dodaj opcję</button>
+            <div class="btn-add" onclick="addOption('todo');"><div class="icon icon-newWhite"></div>Dodaj opcję</div>
          </div>
          <div id="listnote" hidden>
             Opcje listy: <div class="listOptions">
-               <input type="text" id="listOption1" onkeyup="optionKeyup('list');">
+               <input type="text" id="listOption1" onkeyup="optionKeyup('list');" class="optionIn">
             </div>
-            <button type="button" onclick="addOption('list');">Dodaj opcję</button>
+            <div class="btn-add" onclick="addOption('list');"><div class="icon icon-newWhite"></div>Dodaj opcję</div>
          </div>
       </p>
       <input type="submit" value="Dodaj" />
