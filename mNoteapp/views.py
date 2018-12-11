@@ -44,6 +44,8 @@ class GroupNoteCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         groupid = self.request.POST['group']
         self.object = form.save(commit=False)
+        if not self.object.type == "text":
+            self.object.color = "limegreen" if self.object.type == "todo" else "mediumpurple"
         self.object.save()
         Group.objects.get(id=groupid).notes.add(self.object)
         return HttpResponseRedirect(self.get_success_url())

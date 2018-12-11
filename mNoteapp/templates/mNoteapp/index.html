@@ -36,7 +36,7 @@
    {% if notes %}
    <div class="notes">
       {% for note in notes %}
-         <div class="note" id="note{{ note.id }}">
+         <div class="note" id="note{{ note.id }}" style="border: 1px solid {{ note.color }}">
             <div class="noteTitle" style="background-color: {{ note.color }}">
                {{ note.title }}<a href="{% url 'NoteDelete' note.id %}"><div class="icon icon-deleteWhite"></div></a><a href="{% url 'NoteUpdate' note.id %}"><div class="icon icon-editWhite"></div></a>
             </div>
@@ -60,9 +60,8 @@
       {% if group.notes.all %}
       <span class="groupName">{{ group.name }}</span>
          <div class="notes">
-
             {% for note in group.notes.all %}
-               <div class="note" id="note{{ note.id }}">
+               <div class="note" id="note{{ note.id }}" style="border: 1px solid {{ note.color }}">
                   <div class="noteTitle" style="background-color: {{ note.color }}">
                      {{ note.title }}<a href="{% url 'NoteDelete' note.id %}"><div class="icon icon-deleteWhite"></div></a><a href="{% url 'NoteUpdate' note.id %}"><div class="icon icon-editWhite"></div></a>
                   </div>
