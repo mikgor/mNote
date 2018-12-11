@@ -35,7 +35,7 @@
       {% for note in notes %}
          <div class="note" id="note{{ note.id }}">
             <div class="noteTitle">
-               {{ note.title }} <a href="{% url 'NoteUpdate' note.id %}">Zmień</a>
+               {{ note.title }} <a href="{% url 'NoteUpdate' note.id %}">Zmień</a> <a href="{% url 'NoteDelete' note.id %}">Usuń</a>
             </div>
             <div class="noteText" id="note{{ note.id }}Text">
                {{ note.text }}
@@ -51,15 +51,14 @@
    {% if groups %}
    {% for group in groups %}
       <br>{{ group.id }}
-      {{ group.name }}
-      {{ group.owner }}
+      {{ group.name }} <a href="{% url 'GroupUpdate' group.id %}">Zmień</a> <a href="{% url 'GroupDelete' group.id %}">Usuń</a>
       {% for u in group.users.all %}
          {{ u }}
       {% endfor %}
       {% for note in group.notes.all %}
          <div class="note" id="note{{ note.id }}">
             <div class="noteTitle">
-               {{ note.title }} <a href="{% url 'NoteUpdate' note.id %}">Zmień</a>
+               {{ note.title }} <a href="{% url 'NoteUpdate' note.id %}">Zmień</a> <a href="{% url 'NoteDelete' note.id %}">Usuń</a>
             </div>
             <div class="noteText" id="note{{ note.id }}Text">
                {{ note.text }}

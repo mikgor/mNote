@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Usuń notatkę{% endblock title %}
+
+{% block content %}
+<h2>Usuń notatkę</h2>
+<form method="post">{% csrf_token %}
+    <p>Usunąć notatkę "{{ object.title }}"?</p>
+    <input type="submit" value="Usuń">
+</form>
+{% endblock content %}

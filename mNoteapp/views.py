@@ -1,5 +1,5 @@
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import *
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
@@ -113,4 +113,12 @@ class NoteUpdate(LoginRequiredMixin, UpdateView):
     model = Note
     form_class = NoteCreateUpdateForm
     template_name = 'mNoteapp/note_update_form.html'
+    success_url = reverse_lazy('index')
+
+class NoteDelete(DeleteView):
+    model = Note
+    success_url = reverse_lazy('index')
+
+class GroupDelete(DeleteView):
+    model = Group
     success_url = reverse_lazy('index')
