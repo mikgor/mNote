@@ -23,7 +23,7 @@ class Group(models.Model):
     name = models.CharField('Nazwa', max_length=100)
     owner = models.CharField('Właściciel', max_length=100)
     notes = models.ManyToManyField(Note)
-    users = models.ManyToManyField(AppUser)
+    users = models.ManyToManyField(AppUser, verbose_name="Użytkownicy")
 
     def __str__(self):
         return self.name
