@@ -6,6 +6,7 @@ urlpatterns = [
     url('^$', views.IndexView.as_view(), name='index'),
     url(r'^signup/$', views.SignUp.as_view(), name='signup'),
     url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'newnote/$', views.NoteCreate.as_view(), name='NoteCreate'),
     url(r'newgroup/$', views.GroupCreate.as_view(), name='GroupCreate'),
     url(r'^(?P<pk>[0-9]+)/groupupdate/$', views.GroupUpdate.as_view(), name='GroupUpdate'),

@@ -13,12 +13,12 @@
     <body>
       <header>
       {% if user.is_authenticated %}
-         <div class="logoIcon"></div>
+         <a href="{% url 'index' %}"><div class="logoIcon"></div></a>
          <div id="right">
             Witaj {{ user.username }}
-            <div class="btn"><div class="icon icon-newWhite"></div>Nowa notatka</div>
+            <div class="btn"><a href="{% url 'NoteCreate' %}"><div class="icon icon-newWhite"></div>Nowa notatka</a></div>
             <div class="btn"><div class="icon icon-groupWhite"></div>Grupy</div>
-            <div class="btn">Wyloguj</div>
+            <div class="btn"><a href="{% url 'logout' %}">Wyloguj</div></div>
          </div>
       {% else %}
          <a href="{% url 'signup' %}">Rejestracja</a> <a href="{% url 'login' %}">Logowanie</a>
