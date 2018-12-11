@@ -31,11 +31,14 @@
       }
    }
 </script>
+<div class="notesContainer">
+<h1>Prywatne notatki</h1>
    {% if notes %}
+   <div class="notes">
       {% for note in notes %}
          <div class="note" id="note{{ note.id }}">
             <div class="noteTitle">
-               {{ note.title }} <a href="{% url 'NoteUpdate' note.id %}">Zmień</a> <a href="{% url 'NoteDelete' note.id %}">Usuń</a>
+               {{ note.title }}<a href="{% url 'NoteDelete' note.id %}"><div class="icon icon-deleteWhite"></div></a><a href="{% url 'NoteUpdate' note.id %}"><div class="icon icon-editWhite"></div></a>
             </div>
             <div class="noteText" id="note{{ note.id }}Text">
                {{ note.text }}
@@ -45,31 +48,38 @@
             processNote("{{ note.type }}","{{ note.id }}");
          </script>
       {% endfor %}
+    </div>
    {% else %}
       <p>Brak notatek.</p>
    {% endif %}
+</div>
+<div class="notesContainer">
+   <h1>Notatki grup</h1>
    {% if groups %}
    {% for group in groups %}
-      <br>{{ group.id }}
-      {{ group.name }} <a href="{% url 'GroupUpdate' group.id %}">Zmień</a> <a href="{% url 'GroupDelete' group.id %}">Usuń</a>
-      {% for u in group.users.all %}
-         {{ u }}
-      {% endfor %}
-      {% for note in group.notes.all %}
-         <div class="note" id="note{{ note.id }}">
-            <div class="noteTitle">
-               {{ note.title }} <a href="{% url 'NoteUpdate' note.id %}">Zmień</a> <a href="{% url 'NoteDelete' note.id %}">Usuń</a>
-            </div>
-            <div class="noteText" id="note{{ note.id }}Text">
-               {{ note.text }}
-            </div>
+      {% if group.notes.all %}
+      <span class="groupName">{{ group.name }}</span>
+         <div class="notes">
+
+            {% for note in group.notes.all %}
+               <div class="note" id="note{{ note.id }}">
+                  <div class="noteTitle">
+                     {{ note.title }}<a href="{% url 'NoteDelete' note.id %}"><div class="icon icon-deleteWhite"></div></a><a href="{% url 'NoteUpdate' note.id %}"><div class="icon icon-editWhite"></div></a>
+                  </div>
+                  <div class="noteText" id="note{{ note.id }}Text">
+                     {{ note.text }}
+                  </div>
+               </div>
+               <script type="text/javascript">
+                  processNote("{{ note.type }}","{{ note.id }}");
+               </script>
+            {% endfor %}
          </div>
-         <script type="text/javascript">
-            processNote("{{ note.type }}","{{ note.id }}");
-         </script>
-      {% endfor %}
+         <hr></hr>
+      {% endif %}
    {% endfor %}
    {% else %}
       <p>Brak grup.</p>
    {% endif %}
+</div>
 {% endblock %}

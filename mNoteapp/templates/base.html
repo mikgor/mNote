@@ -18,7 +18,7 @@
             Witaj {{ user.username }}
             <div class="btn"><a href="{% url 'NoteCreate' %}"><div class="icon icon-newWhite"></div>Nowa notatka</a></div>
             <div class="btn"><div class="icon icon-groupWhite"></div>Grupy</div>
-            <div class="btn"><a href="{% url 'logout' %}">Wyloguj</div></div>
+            <div class="btn"><a href="{% url 'logout' %}">Wyloguj</a></div>
          </div>
       {% else %}
          <a href="{% url 'signup' %}">Rejestracja</a> <a href="{% url 'login' %}">Logowanie</a>

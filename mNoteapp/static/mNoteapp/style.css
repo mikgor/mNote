@@ -7,13 +7,14 @@ body {
 header {
 	height: 40px;
 	padding: 10px;
-	background-color: cadetblue;
+	background-color: dodgerblue;
 	color: white;
 	display: flex;
 }
 
 a {
 	text-decoration: none;
+	color: dodgerblue;
 }
 
 header a {
@@ -61,10 +62,58 @@ header a {
    background-image: url("icons/groupWhite.png");
 }
 
+.icon-deleteWhite {
+   background-image: url("icons/deleteWhite.png");
+}
+
+.icon-editWhite {
+	background-image: url("icons/editWhite.png");
+}
+
+.icon-deleteWhite, .icon-editWhite {
+	width: 23px;
+	height: 23px;
+	float: right;
+}
+
 header .btn {
 	margin-left: 8px;
 }
 
 .content {
 	margin: 10px;
+	margin-top: 0px;
+}
+
+.notesContainer {
+	width: 49%;
+	display: inline-block;
+	float: left;
+	margin-right: 0.49%;
+}
+
+.notes {
+	display: flex;
+}
+
+.note {
+	display: inline-block;
+	border: 1px solid #9a9a9a;
+	border-radius: 6px;
+	width: 250px;
+	margin-right: 15px;
+	margin-bottom: 15px;
+	min-height: 150px;
+}
+
+.groupName {
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.noteTitle {
+	background-color: dodgerblue;
+	font-size: 23px;
+	color: white;
+	padding: 4px;
 }
