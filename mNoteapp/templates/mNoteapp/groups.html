@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+   Edytuj grupę
+{% endblock title %}
+{% block content %}
+   <h1>Grupy</h1>
+   <p>
+      <div class="btn-add"><a href="{% url 'GroupCreate' %}"><div class="icon icon-newWhite"></div>Nowa grupa</a></div>
+      <div class="btn-add"><a href="{% url 'GroupNoteCreate' %}"><div class="icon icon-newWhite"></div>Nowa notatka grupy</a></div>
+   </p>
+   {% if groups %}
+   <ol>
+   {% for group in groups %}
+      <li>{{ group.name }} ({{group.users.all|length}} osoby/a) {% if group.owner == user.username %}<a href="{% url 'GroupUpdate' group.id %}"><div class="icon icon-edit"></div></a>
+         <a href="{% url 'GroupDelete' group.id %}"><div class="icon icon-delete"></div></a>
+         {% else %}<a href="{% url 'GroupLeave' %}?id={{group.id}}"><div class="icon icon-leave"></div></a>
+         {% endif %}
+      </li>
+
+   {% endfor %}
+   <ol>
+   {% else %}
+      <p>Nie należysz do żadnej grupy.</p>
+   {% endif %}
+{% endblock content %}

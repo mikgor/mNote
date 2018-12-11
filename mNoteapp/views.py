@@ -18,6 +18,16 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         context['groups'] = self.request.user.groups.all()
         return context
 
+class GroupListView(LoginRequiredMixin, generic.ListView):
+    template_name = 'mNoteapp/groups.html'
+    context_object_name = 'groups'
+    queryset = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupListView, self).get_context_data(**kwargs)
+        context['groups'] = self.request.user.groups.all()
+        return context
+
 class SignUp(CreateView):
     form_class = AppUserCreationForm
     success_url = reverse_lazy('login')
@@ -53,7 +63,7 @@ class GroupNoteCreate(LoginRequiredMixin, CreateView):
 class GroupCreate(LoginRequiredMixin, CreateView):
     form_class = GroupCreateForm
     template_name = 'mNoteapp/group_form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('GroupListView')
 
     def form_valid(self, form):
         self.object = form.save()
@@ -126,3 +136,17 @@ class NoteDelete(DeleteView):
 class GroupDelete(DeleteView):
     model = Group
     success_url = reverse_lazy('index')
+
+def GroupLeave(request):
+    if request.user.is_anonymous:
+        return HttpResponseRedirect(reverse('signup'))
+    group_id = ''
+    try:
+        group_id = request.GET.get('id', None)
+        if group_id is not None:
+            group = Group.objects.get(pk=group_id)
+            request.user.groups.remove(group)
+            group.users.remove(request.user)
+    except:
+        return HttpResponseRedirect(reverse('GroupListView'))
+    return HttpResponseRedirect(reverse('GroupListView'))

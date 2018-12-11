@@ -14,14 +14,14 @@ header {
 
 a {
 	text-decoration: none;
-	color: dodgerblue;
+	color: white;
 }
 
 header a {
 	color: white;
 }
 
-.btn {
+.btn, .btn-add, input[type="submit"] {
 	display: inline-block;
 	border: 1px solid white;
 	padding: 3px;
@@ -58,8 +58,16 @@ header a {
    background-image: url("icons/newWhite.png");
 }
 
+.icon-new {
+   background-image: url("icons/new.png");
+}
+
 .icon-groupWhite {
    background-image: url("icons/groupWhite.png");
+}
+
+.icon-delete {
+   background-image: url("icons/delete.png");
 }
 
 .icon-deleteWhite {
@@ -68,6 +76,18 @@ header a {
 
 .icon-editWhite {
 	background-image: url("icons/editWhite.png");
+}
+
+.icon-leave {
+	background-image: url("icons/leave.png");
+}
+
+.icon-leaveWhite {
+	background-image: url("icons/leaveWhite.png");
+}
+
+.icon-edit {
+	background-image: url("icons/edit.png");
 }
 
 .icon-deleteWhite, .icon-editWhite {
@@ -113,4 +133,17 @@ header .btn {
 	font-size: 23px;
 	color: white;
 	padding: 4px;
+}
+
+.btn-add {
+	background-color: limegreen;
+	border: 1px solid #9a9a9a;
+}
+
+input[type="submit"] {
+	padding-left: 8px;
+	padding-right: 8px;
+	border: 1px solid #9a9a9a;
+	background-color: dodgerblue;
+	color: white;
 }
