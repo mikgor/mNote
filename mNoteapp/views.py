@@ -30,6 +30,8 @@ class NoteCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        if not self.object.type == "text":
+            self.object.color = "limegreen" if self.object.type == "todo" else "mediumpurple"
         self.object.save()
         self.request.user.notes.add(self.object)
         return HttpResponseRedirect(self.get_success_url())

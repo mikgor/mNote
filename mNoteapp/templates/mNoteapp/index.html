@@ -37,7 +37,7 @@
    <div class="notes">
       {% for note in notes %}
          <div class="note" id="note{{ note.id }}">
-            <div class="noteTitle">
+            <div class="noteTitle" style="background-color: {{ note.color }}">
                {{ note.title }}<a href="{% url 'NoteDelete' note.id %}"><div class="icon icon-deleteWhite"></div></a><a href="{% url 'NoteUpdate' note.id %}"><div class="icon icon-editWhite"></div></a>
             </div>
             <div class="noteText" id="note{{ note.id }}Text">
@@ -63,7 +63,7 @@
 
             {% for note in group.notes.all %}
                <div class="note" id="note{{ note.id }}">
-                  <div class="noteTitle">
+                  <div class="noteTitle" style="background-color: {{ note.color }}">
                      {{ note.title }}<a href="{% url 'NoteDelete' note.id %}"><div class="icon icon-deleteWhite"></div></a><a href="{% url 'NoteUpdate' note.id %}"><div class="icon icon-editWhite"></div></a>
                   </div>
                   <div class="noteText" id="note{{ note.id }}Text">
