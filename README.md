@@ -1,8 +1,10 @@
 # mNote
-Aplikacja webowa do tworzenia notatek: to-do, list i tekstowych.
+Aplikacja webowa do tworzenia notatek.
 
 # Funkcje
 * Rejestracja i logowanie
-* Tworzenie i edycja grup
-* Tworzenie i edycja notatek: prywatne i grupowe
+* Tworzenie i edycja grup użytkowników
+* Tworzenie i edycja notatek
+* Notatki: prywatne i grupowe
+* Rodzaje notatek: to-do, listy, tekstowe
 * Wewnętrzny system powiadomień
