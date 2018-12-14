@@ -8,7 +8,7 @@
     return function(event) {
         location.href = "{% url 'UpdateCheckboxNote' %}?note_id=" + $id + "&index=" + $i;
     };
-}
+   }
    function processNote($type, $id) {
       if ($type != "text") {
          $elId = "#note" + $id;
@@ -17,7 +17,7 @@
          if ($type == "todo") {
             for ($i = 0; $i < $options.length-1; $i++) {
                $checked = $options[$i].indexOf('*')>=0 ? "checked" : "";
-               $($elId + "Text").append("<input type='checkbox' id='" + $id + $i + "Checkbox' " + $checked + "/> " + $options[$i].replace('*', ''));
+               $($elId + "Text").append("<label class='CBcontainer'><input type='checkbox' id='" + $id + $i + "Checkbox' " + $checked + "/> " + $options[$i].replace('*', '') + "<span class='checkmark'></span></label><br>");
                $("#" + $id + $i + "Checkbox").click(
                   update_handler( $id, $i ));
             }
@@ -30,6 +30,7 @@
          }
       }
    }
+
 </script>
 <div class="notesContainer">
 <h1>Prywatne notatki</h1>
@@ -81,4 +82,11 @@
       <p>Nie należysz do żadnej grupy.</p>
    {% endif %}
 </div>
+<script type="text/javascript">
+function highlightLinks() {
+   var el = document.getElementById("content");
+   el.innerHTML = el.innerHTML.replace(/(^|[^\/])(www\.[\S]+(\b|$))/gim, '$1<a href="http://$2" target="_blank" style="color:dodgerblue;">$2</a>');
+}
+document.onload = highlightLinks();
+</script>
 {% endblock %}

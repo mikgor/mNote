@@ -94,6 +94,10 @@ header a {
 	background-image: url("icons/checkWhite.png");
 }
 
+.icon-registerWhite {
+	background-image: url("icons/registerWhite.png");
+}
+
 .icon-deleteWhite, .icon-editWhite {
 	width: 23px;
 	height: 23px;
@@ -139,6 +143,10 @@ header .btn {
 	padding: 4px;
 }
 
+.noteText {
+    padding: 4px;
+}
+
 .btn-add {
 	background-color: limegreen;
 	border: 1px solid #9a9a9a;
@@ -163,7 +171,7 @@ textarea {
   resize: none;
 }
 
-input[type=text], select {
+input[type=text], input[type=password], select {
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -198,4 +206,57 @@ input[type=text].optionIn {
 
 .notificationTitle .icon-checkWhite {
 	float: right;
+}
+
+ol {
+    margin-left: -20px;
+    margin-top: 0;
+}
+
+.CBcontainer {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+}
+
+.CBcontainer input {
+  position: absolute;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #ccc;
+}
+
+.CBcontainer input:checked ~ .checkmark {
+  background-color: limegreen;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.CBcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.CBcontainer .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

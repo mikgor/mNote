@@ -27,12 +27,12 @@
                </div>
          {% else %}
             <div id="right">
-               <a href="{% url 'signup' %}">Rejestracja</a>
-               <a href="{% url 'login' %}">Logowanie</a>
+               <div class="btn"><div class="icon icon-registerWhite"></div><a href="{% url 'signup' %}">Rejestracja</a></div>
+               <div class="btn"><div class="icon icon-groupWhite"></div><a href="{% url 'login' %}">Logowanie</a></div>
             </div>
          {% endif %}
       </header>
-      <div class="content">
+      <div class="content" id="content">
          {% block content %}{% endblock %}
       </div>
    </body>
