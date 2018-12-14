@@ -5,9 +5,7 @@
 {% block content %}
 <script type="text/javascript">
    function update_handler( $id, $i ) {
-    return function(event) {
         location.href = "{% url 'UpdateCheckboxNote' %}?note_id=" + $id + "&index=" + $i;
-    };
    }
    function processNote($type, $id) {
       if ($type != "text") {
@@ -17,9 +15,7 @@
          if ($type == "todo") {
             for ($i = 0; $i < $options.length-1; $i++) {
                $checked = $options[$i].indexOf('*')>=0 ? "checked" : "";
-               $($elId + "Text").append("<label class='CBcontainer'><input type='checkbox' id='" + $id + $i + "Checkbox' " + $checked + "/> " + $options[$i].replace('*', '') + "<span class='checkmark'></span></label><br>");
-               $("#" + $id + $i + "Checkbox").click(
-                  update_handler( $id, $i ));
+               $($elId + "Text").append("<label onclick='update_handler("+ $id+"," + $i +");' for='" + $id + $i + "Checkbox' class='CBcontainer'><input type='checkbox' id='" + $id + $i + "Checkbox' " + $checked + "/> " + $options[$i].replace('*', '') + "<span class='checkmark'></span></label><br>");
             }
          }
          else if ($type == "list") {

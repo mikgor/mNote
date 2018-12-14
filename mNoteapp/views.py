@@ -74,6 +74,7 @@ class GroupCreate(LoginRequiredMixin, CreateView):
         self.object = form.save()
         self.object.owner = self.request.user.username
         self.object.users.add(self.request.user)
+        self.request.user.groups.add(self.object)
         self.object.save()
         notification = '{0} dodał Cię do grupy {1}'.format(self.request.user.username, self.object.name)
         for user in self.object.users.all().exclude(username=self.request.user.username):
