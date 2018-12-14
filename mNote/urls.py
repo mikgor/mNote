@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/noteupdate/$', views.NoteUpdate.as_view(), name='NoteUpdate'),
     url(r'^(?P<pk>[0-9]+)/notedelete/$', views.NoteDelete.as_view(), name='NoteDelete'),
     url(r'^(?P<pk>[0-9]+)/groupdelete/$', views.GroupDelete.as_view(), name='GroupDelete'),
+    url(r'^notifications/$', views.NotificationList, name='NotificationList'),
+    url(r'^notificationread/$', views.NotificationRead, name='NotificationRead'),
 ]

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Note
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'mNoteapp/index.html'
@@ -56,8 +56,13 @@ class GroupNoteCreate(LoginRequiredMixin, CreateView):
         self.object = form.save(commit=False)
         if not self.object.type == "text":
             self.object.color = "limegreen" if self.object.type == "todo" else "mediumpurple"
+        self.object.groupId = groupid
         self.object.save()
-        Group.objects.get(id=groupid).notes.add(self.object)
+        g = Group.objects.get(id=groupid)
+        g.notes.add(self.object)
+        notification = '{0} stworzył nową notatkę grupy: {1}'.format(self.request.user.username, self.object.title)
+        for user in g.users.all().exclude(username=self.request.user.username):
+            user.NewNotification(text=notification)
         return HttpResponseRedirect(self.get_success_url())
 
 class GroupCreate(LoginRequiredMixin, CreateView):
@@ -70,8 +75,10 @@ class GroupCreate(LoginRequiredMixin, CreateView):
         self.object.owner = self.request.user.username
         self.object.users.add(self.request.user)
         self.object.save()
-        for user in self.object.users.all():
+        notification = '{0} dodał Cię do grupy {1}'.format(self.request.user.username, self.object.name)
+        for user in self.object.users.all().exclude(username=self.request.user.username):
             user.groups.add(self.object)
+            user.NewNotification(text=notification)
         return HttpResponseRedirect(self.get_success_url())
 
 class GroupUpdate(LoginRequiredMixin, UpdateView):
@@ -83,14 +90,18 @@ class GroupUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
 
+        notification = '{0} usunął Cię z grupy {1}'.format(self.request.user.username, self.object.name)
         for user in self.object.users.all():
             if not form.cleaned_data['users'].filter(username=user.username).exists() and not user.username==self.object.owner:
                 user.groups.remove(self.object)
+                user.NewNotification(text=notification)
                 print("Usunięto", user.username)
 
+        notification = '{0} dodał Cię do grupy {1}'.format(self.request.user.username, self.object.name)
         for user in form.cleaned_data['users']:
             if not user.groups.filter(pk=self.object.id).exists():
                 user.groups.add(self.object)
+                user.NewNotification(text=notification)
                 print("Dodano", user.username)
 
         self.object.users.set(form.cleaned_data['users'])
@@ -150,3 +161,24 @@ def GroupLeave(request):
     except:
         return HttpResponseRedirect(reverse('GroupListView'))
     return HttpResponseRedirect(reverse('GroupListView'))
+
+def NotificationList(request):
+    if request.user.is_anonymous:
+        return HttpResponseRedirect(reverse('signup'))
+    id = request.GET.get('uid', None)
+    notifications = AppUser.objects.get(pk=id).notifications.filter(read=False)
+    return HttpResponse(';'.join('{0}/{1}'.format(n.id, n.text) for n in notifications))
+
+def NotificationRead(request):
+    if request.user.is_anonymous:
+        return HttpResponseRedirect(reverse('signup'))
+    notification_id = ''
+    try:
+        notification_id = request.GET.get('id', None)
+        if notification_id is not None:
+            notification = Notification.objects.get(pk=notification_id)
+            notification.read = True
+            notification.save()
+    except:
+        return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('index'))

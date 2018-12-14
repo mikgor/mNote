@@ -13,17 +13,24 @@
     </head>
     <body>
       <header>
-      {% if user.is_authenticated %}
          <a href="{% url 'index' %}"><div class="logoIcon"></div></a>
-         <div id="right">
-            Witaj {{ user.username }}
-            <div class="btn"><a href="{% url 'NoteCreate' %}"><div class="icon icon-newWhite"></div>Nowa notatka</a></div>
-            <div class="btn"><a href="{% url 'GroupListView' %}"><div class="icon icon-groupWhite"></div>Grupy</a></div>
-            <div class="btn"><a href="{% url 'logout' %}"><div class="icon icon-leaveWhite"></div>Wyloguj</a></div>
-         </div>
-      {% else %}
-         <a href="{% url 'signup' %}">Rejestracja</a> <a href="{% url 'login' %}">Logowanie</a>
-      {% endif %}
+         {% if user.is_authenticated %}
+            <script src="{% static 'mNoteapp/scripts/notification_handler_script.js' %}"></script>
+            <script type="text/javascript">
+               handleNotifications({{ user.id }});
+            </script>
+               <div id="right">
+                  Witaj {{ user.username }}
+                  <div class="btn"><a href="{% url 'NoteCreate' %}"><div class="icon icon-newWhite"></div>Nowa notatka</a></div>
+                  <div class="btn"><a href="{% url 'GroupListView' %}"><div class="icon icon-groupWhite"></div>Grupy</a></div>
+                  <div class="btn"><a href="{% url 'logout' %}"><div class="icon icon-leaveWhite"></div>Wyloguj</a></div>
+               </div>
+         {% else %}
+            <div id="right">
+               <a href="{% url 'signup' %}">Rejestracja</a>
+               <a href="{% url 'login' %}">Logowanie</a>
+            </div>
+         {% endif %}
       </header>
       <div class="content">
          {% block content %}{% endblock %}

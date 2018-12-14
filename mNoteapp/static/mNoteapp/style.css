@@ -90,6 +90,10 @@ header a {
 	background-image: url("icons/edit.png");
 }
 
+.icon-checkWhite {
+	background-image: url("icons/checkWhite.png");
+}
+
 .icon-deleteWhite, .icon-editWhite {
 	width: 23px;
 	height: 23px;
@@ -171,4 +175,27 @@ input[type=text], select {
 
 input[type=text].optionIn {
 	margin-right: 5px;
+}
+
+.notification {
+	position: fixed;
+	border-radius: 6px;
+	color: white;
+	padding: 4px;
+	background-color: rgba(30, 144, 255, 0.75);
+	border: 1px solid #9a9a9a;
+	width: 260px;
+	min-height: 58px;
+	bottom: 10px;
+	font-size: 15px;
+	right: -270px;
+}
+
+.notificationTitle {
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.notificationTitle .icon-checkWhite {
+	float: right;
 }
